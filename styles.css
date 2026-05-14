@@ -1,0 +1,361 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  cursor: url("cursor.cur") 0 0, crosshair;
+}
+
+body {
+  font-family: "Consolas", "Monaco", "Lucida Console", "Liberation Mono", monospace;
+  color: #ff2a2a;
+  background: #050000;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  cursor: url("cursor.cur") 0 0, crosshair;
+}
+
+.video-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+
+.video-shell__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0.88) 100%);
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.18),
+    rgba(0, 0, 0, 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.55;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.stage {
+  position: relative;
+  z-index: 4;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding: 2rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.boot,
+.display,
+.sub,
+.social {
+  pointer-events: auto;
+}
+
+.boot {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a1515;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.35);
+  min-height: 1.2em;
+}
+
+.display {
+  margin: 0;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  color: #ff1a1a;
+  text-shadow:
+    0 0 20px rgba(255, 0, 0, 0.85),
+    0 0 60px rgba(180, 0, 0, 0.45),
+    2px 0 0 rgba(255, 0, 0, 0.15),
+    -2px 0 0 rgba(0, 255, 200, 0.08);
+  animation: flicker 4.5s infinite;
+}
+
+.social {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.15rem;
+}
+
+.soc {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 40, 40, 0.45);
+  background: rgba(8, 0, 0, 0.55);
+  color: #ff4d4d;
+  text-decoration: none;
+  box-shadow: 0 0 14px rgba(255, 0, 0, 0.15), inset 0 0 18px rgba(30, 0, 0, 0.35);
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.soc:hover {
+  border-color: rgba(255, 100, 100, 0.85);
+  color: #ff9a9a;
+  box-shadow: 0 0 22px rgba(255, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+.soc:active {
+  transform: translateY(0);
+}
+
+.soc__svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+button.soc {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+.sub {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #8b0000;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 0.97;
+  }
+  54% {
+    opacity: 0.88;
+  }
+  56% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 0.92;
+  }
+  93% {
+    opacity: 1;
+  }
+}
+
+.dock {
+  position: fixed;
+  z-index: 5;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctrl {
+  width: 52px;
+  height: 52px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 40, 40, 0.55);
+  background: rgba(10, 0, 0, 0.75);
+  color: #ff3b3b;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 0 18px rgba(255, 0, 0, 0.25),
+    inset 0 0 20px rgba(40, 0, 0, 0.5);
+  transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ctrl:hover {
+  border-color: rgba(255, 80, 80, 0.9);
+  color: #ff6b6b;
+  box-shadow:
+    0 0 28px rgba(255, 0, 0, 0.45),
+    inset 0 0 24px rgba(60, 0, 0, 0.55);
+}
+
+.ctrl:active {
+  transform: scale(0.96);
+}
+
+.ctrl__icon {
+  grid-area: 1 / 1;
+  display: none;
+}
+
+.ctrl--playing .ctrl__icon--pause {
+  display: block;
+}
+
+.ctrl:not(.ctrl--playing) .ctrl__icon--play {
+  display: block;
+}
+
+.dsc-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
+}
+
+.dsc-panel {
+  position: fixed;
+  z-index: 21;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(90vw, 320px);
+  border: 1px solid rgba(255, 60, 60, 0.65);
+  border-radius: 6px;
+  background: linear-gradient(160deg, rgba(40, 0, 0, 0.95), rgba(12, 0, 0, 0.98));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 0, 0, 0.35),
+    inset 0 0 60px rgba(80, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.dsc-panel__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.55rem;
+  background: rgba(255, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(255, 80, 80, 0.35);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ff6b6b;
+}
+
+.dsc-panel__title {
+  flex: 1;
+  font-weight: 700;
+}
+
+.dsc-panel__blink {
+  animation: dscblink 1.1s step-end infinite;
+  color: #ff1a1a;
+}
+
+@keyframes dscblink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.dsc-panel__x {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #ff8a8a;
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  cursor: inherit;
+}
+
+.dsc-panel__x:hover {
+  color: #fff;
+}
+
+.dsc-panel__body {
+  padding: 1.1rem 1rem 1.25rem;
+}
+
+.dsc-panel__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #8b2323;
+}
+
+.dsc-panel__handle {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ff2a2a;
+  text-shadow: 0 0 18px rgba(255, 0, 0, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display {
+    animation: none;
+  }
+
+  .dsc-panel__blink {
+    animation: none;
+  }
+}
